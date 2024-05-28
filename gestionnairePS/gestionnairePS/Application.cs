@@ -2,14 +2,8 @@
 /// Auteur: Yago Iglesias Rodriguez
 /// Date: 26.03.2024
 /// Description: Claase qui permet de creer une application affin de recuperer les informations de connexion de l'application.
-///              Pour ceci la méthode GetAppInfo() est utiliser affin de stocker les informations et les retourner pour les stocker dans le fichier correspondent 
-             
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+///              Pour ceci la méthode GetAppInfo() est utiliser affin de stocker les informations 
+///              et les retourner pour les stocker dans le fichier correspondent 
 
 namespace gestionnairePS
 {
@@ -58,10 +52,10 @@ namespace gestionnairePS
         /// <summary>
         /// contructeur de l'application
         /// </summary>
-        /// <param name="name">inserer le nom de l'application</param>
-        /// <param name="url">lien</param>
-        /// <param name="login">login</param>
-        /// <param name="passeWord">mot de passe</param>
+        /// <param name="name"> inserer le nom de l'application </param>
+        /// <param name="url"> lien </param>
+        /// <param name="login"> login </param>
+        /// <param name="passeWord"> mot de passe </param>
         public Application(string name,string url, string login, string passeWord)
         {
             _nameApp = name;

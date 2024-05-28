@@ -7,19 +7,11 @@
 ///               CheckPassWord() pour consulter un mot de passe.
 ///               AddPasseWord() pour ajouter un mot de passe.
 ///               ModifyPassword() pour modifier.
-///               et ChangeKey() pour changer la clé
-
+///               ChangeKey() pour changer la clé.
+///               et DeletePasseword() qui permet de supprimer les fichiers.
 
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Reflection.Emit;
-using System.Text;
-using System.Threading.Tasks;
-
-
 
 namespace gestionnairePS
 {
@@ -29,11 +21,6 @@ namespace gestionnairePS
         /// variable pour la reponse de l'utilisateur
         /// </summary>
         private string _actionSelected = " ";
-
-        /// <summary>
-        /// recuperer ou mettre à jour l'action choisie
-        /// </summary>
-        public string ActionSelected { get { return _actionSelected; } set { _actionSelected = value; } }
 
         /// <summary>
         /// compteur d'applications
@@ -101,9 +88,9 @@ namespace gestionnairePS
 
                 Console.WriteLine("******************************************************\n");
                 Console.Write(" Faites votre choix : ");
-                ActionSelected = Console.ReadLine();
+                _actionSelected = Console.ReadLine();
                 // verifier le choix de l'utilisateur 
-                switch (Convert.ToInt32(ActionSelected))
+                switch (Convert.ToInt32(_actionSelected))
                 {
                     // case 1 est le retour au menu principal(choix par default)
                     case 1:
@@ -114,7 +101,7 @@ namespace gestionnairePS
                     // prendre en compte le reste des chiffres
                     default:
                   
-                        string name = _files[Convert.ToInt32(ActionSelected) - 2];
+                        string name = _files[Convert.ToInt32(_actionSelected) - 2];
                         _logFile.ReadFile(name);// lire le fichier selon le choix 
                         Console.WriteLine(" Appuyez sur Enter pour masquer le mot de passe et revenir au menu");
                         Console.ReadKey();
@@ -160,14 +147,14 @@ namespace gestionnairePS
                     //Console.WriteLine();
                     // login de l'app
                     Console.Write(" Login : ");
-                    app.Login = _key.HideInput();
+                    app.Login = _key.HiddeInput();
 
                     // verifier que le login n'est pas vide pour encripter lo login
                     if (app.Login != string.Empty)
                     {
                         Login login = new Login(app.Login);// instancier l'objet login pour pouvoir le chiffrer 
                         //app.Login = login.Encryption();// chiffrement césar du login
-                        app.Login = login.EncryptionVigenere();// chiffrement vigèner du login
+                        app.Login = login.EncryptionLoginVigenere(true);// chiffrement vigèner du login
                     }
 
                 } while (app.Login == string.Empty); // verifier que le champ login est remplie 
@@ -178,14 +165,14 @@ namespace gestionnairePS
                     //Console.WriteLine();
                     // mot de passe de l'app
                     Console.Write(" Mot de passe : ");
-                    app.PasseWord = _key.HideInput();
+                    app.PasseWord = _key.HiddeInput();
 
                     // verifier que le mot de passe n'est pas vide pour encripter le mot de passe
                     if (app.PasseWord != string.Empty)
                     {
                         PasseWord passWord = new PasseWord(app.PasseWord);// insatncier l'objet ps pour le chiffrer 
                         //app.PasseWord = passWord.Encryption();// chifrement césar du ps 
-                        app.PasseWord = passWord.EncryptionVigenere();// chifrement vigènere du ps 
+                        app.PasseWord = passWord.EncryptionPassewordVigenere(true);// chifrement vigènere du ps 
                     }
 
                 } while (app.PasseWord == string.Empty); // verifier que le champ mot de passe est remplie
@@ -236,14 +223,13 @@ namespace gestionnairePS
                     _counter++;
                     // afficher le numero et le fichiers 
                     Console.WriteLine($" {_counter}. {_files[i]}");
-
                 }
                 // reinitialiser le compteur
                 _counter = 1;
                 Console.WriteLine("******************************************************\n");
                 Console.Write(" Faites votre choix : ");
-                ActionSelected = Console.ReadLine();
-                switch (Convert.ToInt32(ActionSelected))
+                _actionSelected = Console.ReadLine();
+                switch (Convert.ToInt32(_actionSelected))
                 {
                     case 1:
                         // reaficher le menu
@@ -252,7 +238,7 @@ namespace gestionnairePS
 
                     // prendre en compte le reste des chiffres 
                     default :
-                        string name = _files[Convert.ToInt32(ActionSelected) - 2];
+                        string name = _files[Convert.ToInt32(_actionSelected) - 2];
                         /*_logFile.ReadFile(name);// lire le fichier selon le choix
                         _logFile.FileName = _logFile.InfoFile[0];
                         string appName = _logFile.FileName;*/
@@ -272,28 +258,30 @@ namespace gestionnairePS
                         {
                             // login de l'app
                             Console.Write(" Login : ");
-                            app.Login = _key.HideInput();
+                            app.Login = _key.HiddeInput();
                             // verifier que le login n'est pas vide pour encripter lo login
                             if (app.Login != string.Empty)
                             {
                                 Login login = new Login(app.Login);// instancier l'objet login pour pouvoir le chiffrer 
                                 //app.Login = login.Encryption();// chiffrement césar du login
-                                app.Login = login.EncryptionVigenere();// chiffrement vigèner du login
+                                app.Login = login.EncryptionLoginVigenere(true);// chiffrement vigèner du login
                             }
+
                         } while (app.Login == string.Empty); // verifier que le champ login est remplie 
                         // demander le mot de passe jusqu'a ce que ce soit remplie
                         do
                         {
                             // mot de passe de l'app
                             Console.Write(" Mot de passe : ");
-                            app.PasseWord = _key.HideInput();
+                            app.PasseWord = _key.HiddeInput();
                             // verifier que le mot de passe n'est pas vide pour encripter le mot de passe
                             if (app.PasseWord != string.Empty)
                             {
                                 PasseWord passWord = new PasseWord(app.PasseWord);// insatncier l'objet ps pour le chiffrer 
                                 //app.PasseWord = passWord.Encryption();// chifrement césar du ps 
-                                app.PasseWord = passWord.EncryptionVigenere();// chifrement vigènere du ps 
+                                app.PasseWord = passWord.EncryptionPassewordVigenere(true);// chifrement vigènere du ps 
                             }
+
                         } while (app.PasseWord == string.Empty); // verifier que le champ mot de passe est remplie
 
                         _logFile.WriteFile(app);// ecrire dans le fichier
@@ -333,8 +321,8 @@ namespace gestionnairePS
             Console.WriteLine(" 6. Quitter le programme");
             Console.WriteLine("******************************************************\n");
             Console.Write(" Faites votre choix : ");
-            ActionSelected = Console.ReadLine();
-            switch (ActionSelected)
+            _actionSelected = Console.ReadLine();
+            switch (_actionSelected)
             {
                 case "1":
                     CheckPasseWord();
@@ -394,25 +382,24 @@ namespace gestionnairePS
             do
             {
                 Console.Write(" Ecrivez votre clé: ");
-                _key.KeyToTest = _key.HideInput();
+                _key.KeyToTest = _key.HiddeInput();// masquer la saisie
                 // si la clé n'est pas vide 
                 if (_key.KeyToTest != string.Empty)
                 {
-                    _key.KeyToTest = _key.TestKey();// cripter la clé
+                    _key.KeyToTest = _key.EncryptKeyToTest();// cripter la clé inserer afin de verifier si elle correspond a celle enregistre 
                     // si la clé cripter qu'on test est la même que la clé enregistrer alors on demarre le programme
-                    if (_key.KeyToTest == _key.KeyCrypted || _key.KeyToTest == _key.Key)
+                    if (_key.KeyToTest == _key.Key)
                     {
                         Start();// lancer le programme
                     }
                     // si non message d'erreure
                     else
                     {
-
                         Console.WriteLine(" Votre clé est fausse");
                     }
                 }
 
-            } while (_key.KeyToTest == string.Empty);
+            } while (_key.Key == string.Empty);
         }
  
         /// <summary>
@@ -429,7 +416,7 @@ namespace gestionnairePS
             for (int i = 0; i < _files.Length; i++)
             {
                 // recuperer les informations des fichiers decripters
-                infoFile = _logFile.DecryptFileIfKeyChange(_files[i]);
+                infoFile = _logFile.EncryptOrDecryptFileInfo(_files[i],false);
                 // ecrire dans le fichier qui est dans le chemin indiquer en parametre
                 StreamWriter appInfo = new StreamWriter(_logFile.Path + _files[i]);
                 appInfo.WriteLine(infoFile);// informations decriptes
@@ -445,7 +432,7 @@ namespace gestionnairePS
             for (int i = 0; i < _files.Length; i++)
             {
                 // strocker les informations encriptes
-                infoFile = _logFile.EncryptFileIfKeyChange(_files[i]);
+                infoFile = _logFile.EncryptOrDecryptFileInfo(_files[i], true);
                 // ecrire dans le fichier qui est dans le chemin indiquer en parametre
                 StreamWriter appInfo = new StreamWriter(_logFile.Path + _files[i]);
                 appInfo.WriteLine(infoFile);// informations encriptes
@@ -488,23 +475,22 @@ namespace gestionnairePS
                     _counter++;
                     // afficher le numero et le fichiers 
                     Console.WriteLine($" {_counter}. {_files[i]}");
-
                 }
                 // reinitialiser le compteur
                 _counter = 1;
                 Console.WriteLine("******************************************************\n");
                 Console.Write(" Faites votre choix : ");
-                ActionSelected = Console.ReadLine();
-                switch (Convert.ToInt32(ActionSelected))
+                _actionSelected = Console.ReadLine();
+                switch (Convert.ToInt32(_actionSelected))
                 {
                     case 1:
                         // reaficher le menu
                         Start();
-                        break;
+                    break;
 
                     // prendre en compte le reste des chiffres 
                     default:
-                        string name = _files[Convert.ToInt32(ActionSelected) - 2];
+                        string name = _files[Convert.ToInt32(_actionSelected) - 2];
                         File.Delete(_logFile.Path + name);
                         Console.WriteLine(" Fichier supprimer appuyez sur enter pour retourner au menu principal");
                         Console.ReadKey();
@@ -512,7 +498,6 @@ namespace gestionnairePS
                     break; 
                 }
             }
-
         }
     }
 }

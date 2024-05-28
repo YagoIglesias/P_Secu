@@ -1,15 +1,11 @@
 ﻿/// ETML
 /// Auteur : Yago Iglesias Rodriguez
 /// Date : 19.03.24
-/// Description : Classe qui permet la creation de mots de passe, les encrypter et les decrypter avec les méthodes EncryptionVigenere et DecryptionVigenere()
+/// Description : Classe qui permet la creation de l'objet mot de passe.
+///               Avec la méthode EncryptionPassewordVigenere(bool isCrypted) on peut chiffrer ou dechiffrer le mot de pas.
+///               Si le booléan est vrais alors le mot de passe est encrypte et si non decrypte.
 
 using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Text;
-//using System.Threading.Tasks;
-//using System.Security.Cryptography;
-using System.IO;
 
 namespace gestionnairePS
 {
@@ -23,7 +19,7 @@ namespace gestionnairePS
         /// <summary>
         /// variable pour le mot de passe
         /// </summary>
-        private string _ps;
+        private string _passeword;
 
         /// <summary>
         /// tableau pour stocker les characteres du PS
@@ -38,38 +34,33 @@ namespace gestionnairePS
         /// <summary>
         /// Recuperer ou mettre a jour le mot de passe 
         /// </summary>
-        public string Ps { get { return _ps; } set { _ps = value; } }
-
-        /// <summary>
-        /// Recuperer ou mettre a jour le tableau de valeurs
-        /// </summary>
-        public int[] CharValues { get { return _charValues; } set { _charValues = value; } }
+        public string Passeword { get { return _passeword; } set { _passeword = value; } }
 
         /// <summary>
         /// Constructeur du ps 
         /// </summary>
-        /// <param name="ps"> mot de passe </param>
-        public PasseWord(string ps)
+        /// <param name="passeword"> mot de passe </param>
+        public PasseWord(string passeword)
         {
-            _ps = ps;
+            _passeword = passeword;
         }
 
         /// <summary>
-        /// méthode pour chiffrer le ps
+        /// méthode pour chiffrer le mot de passe avec césar
         /// </summary>
         public string Encryption()
         {
             // instancier le tableau de valeurs
-            _charValues = new int[_ps.Length];
+            _charValues = new int[_passeword.Length];
 
             // var pour stocker la valeur du char
             int value;
 
             // separer le ps en char et stock les chars dans un tableau
-            _chars = _ps.ToCharArray();
+            _chars = _passeword.ToCharArray();
                                        
             // tableau pour stocker les nouveau characteres
-            char[] newArray = new char[_ps.Length];
+            char[] newArray = new char[_passeword.Length];
 
             // variable pour stocker la concatenation des characteres modifies 
             string encriptedPs;
@@ -90,14 +81,14 @@ namespace gestionnairePS
         }
 
         /// <summary>
-        /// méthode pour afficher le mot de passe en claire
+        /// méthode pour afficher le mot de passe avec césar
         /// </summary>
         public string Decryption()
         {
             // instancier le tableau des valeurs du char
-            _charValues = new int[_ps.Length];
+            _charValues = new int[_passeword.Length];
             int values;// stocker les valeurs du char
-            _chars = _ps.ToCharArray();// separer le ps en char et les stocker dans le tableau 
+            _chars = _passeword.ToCharArray();// separer le ps en char et les stocker dans le tableau 
             string dencriptedPs = null;// stocker le ps decripte
             // parcourrir le tablea de char
             for (int i = 0; i < _chars.Length; i++)
@@ -114,140 +105,90 @@ namespace gestionnairePS
         //****/ chiffrement vigenere /***//
 
         /// <summary>
-        /// instancier l'objet pour la clé
+        /// instancier l'objet clé pour encrypter le mot de passe avec 
         /// </summary>
         KeyPasse _key = new KeyPasse();
 
         /// <summary>
-        /// tableau pour les chars de la clé
+        /// tableau pour les caractères de la clé
         /// </summary>
         private char[] _keyChars;
 
         /// <summary>
-        /// tableau des chars de la cle pour remplacer le ps
+        /// tableau des caractères de la cle pour remplacer le ps
         /// </summary>
         private char[] _keyPasse;
 
         /// <summary>
-        /// tableau de valeur en int des chars de la clé 
+        /// tableau de valeur en int des caractères de la clé 
         /// </summary>
         private int[] _keyValue;
 
         /// <summary>
-        /// méthode pour chiffrer le mot de passe avec le chiffrement vigenere
+        /// méthode pour chiffrer ou dechiffrer le mot de passe avec le chiffrement vigenere
         /// </summary>
-        /// <returns> le mot de passe chiffrer </returns>
-        public string EncryptionVigenere()
+        /// <param name="isCrypted"> verifier si il faut crypter ou decrypter </param>
+        /// <returns> passeword crypter ou decrypter </returns>
+        public string EncryptionPassewordVigenere(bool isCrypted)
         {
             // stocker la cle
             string key = null;
-            _key.CheckOrGenerateKey();// verifier la cle de l'utilisateur
+            _key.CheckOrGenerateKey();// verifier la clé de l'utilisateur
             // stocker la cle decrypte
-            key = _key.DecryptionKeyVigenere();
+            key = _key.EncryptionKeyVigenere(false);
 
-            // instancier le tableu de valeurs des chars
-            _keyValue = new int[_ps.Length];
-            // instancier le tableau de chars qui contient les chars de la clé
-            int[] cryptedPs = new int[_ps.Length];
-            // instancier le tableu qui contients les valeurs valeurs des chars du ps d'origine
-            _charValues = new int[_ps.Length];
+            // instancier le tableu de valeurs des caractères
+            _keyValue = new int[_passeword.Length];
+            // instancier le tableau qui contien la valeur des caractères du mot de passe crypter ou decrypter 
+            int[] charsValuesPasseword = new int[_passeword.Length];
+            // instancier le tableu qui contients les valeurs des caractères du mot de passe d'origine
+            _charValues = new int[_passeword.Length];
 
-            int valuesPs;// variable qui stock la valeur du char du ps
-            int valuesKey;// variable qui stock la valeur du char de la clé
+            int valuesPs;// variable qui stock la valeur du caractère du ps
+            int valuesKey;// variable qui stock la valeur du caractère de la clé
 
-            _chars = _ps.ToCharArray();// tableau des chars du ps
-            _keyChars = key.ToCharArray();// tableau des chars de la cle 
-            _keyPasse = new char[_ps.Length];// tableau des chars de la cle pour remplacer le ps 
-            int cptr = 0;// compteur pour les chars de la cle
+            _chars = _passeword.ToCharArray();// tableau des caractères du ps
+            _keyChars = key.ToCharArray();// tableau des caractères de la cle 
+            _keyPasse = new char[_passeword.Length];// tableau des caractères de la cle pour remplacer le ps 
+            int counter = 0;// compteur pour les chars de la cle
 
-            // var pour stocker le psencripte
-            string encriptedPs = null;
+            // var pour stocker le mot de passe chiffrer ou dechiffrer
+            string password = null;
 
             // repeter la cle selon la taille du passeWord
-            for (int i = 0; i < _ps.Length; i++)
+            for (int i = 0; i < _passeword.Length; i++)
             {
                 // si i est égale à la taille de la clé
-                if (cptr == key.Length)
+                if (counter == key.Length)
                 {
-                    cptr = 0; // compteur repasse à 0
+                    counter = 0; // compteur repasse à 0
                 }
-                _keyPasse[i] = _keyChars[cptr];
-                cptr++;// incrementer le compteur
+                _keyPasse[i] = _keyChars[counter];
+                counter++;// incrementer le compteur
             }
-            // transformer le char en int pour chaque cas du tableau
+            // transformer le caractère en int pour chaque cas du tableau
             for (int i = 0; i < _keyPasse.Length; i++)
             {
                 valuesPs = Convert.ToInt32(_chars[i]);
-                _charValues[i] = valuesPs;// stocker la valeur de chaque char
+                _charValues[i] = valuesPs;// stocker la valeur de chaque caractère
 
                 valuesKey = Convert.ToInt32(_keyPasse[i]);
-                _keyValue[i] = valuesKey;// stocker la valeur de chaque char
+                _keyValue[i] = valuesKey;// stocker la valeur de chaque caractère
 
-                // stocker le nouveau char qui sort de l'addition de la cle + le passeWord et le modulo pour avoir la table ascii etendue
-                cryptedPs[i] = (_charValues[i] + _keyValue[i]) % 256;
-
-                encriptedPs += Convert.ToChar(cryptedPs[i]);// concatenation des chars
-            }
-            // ps chiffrer
-            return encriptedPs;
-        }
-
-        /// <summary>
-        /// méthode pour dechiffrer le passeWord avec le dechiffrement vigenere
-        /// </summary>
-        /// <returns> mot de passe dechiffrer </returns>
-        public string DecryptionVigenere()
-        {
-            // stocker la cle
-            string key = null;
-            _key.CheckOrGenerateKey();// verifier la cle de l'utilisateur
-            // stocker la cle decrypte
-            key = _key.DecryptionKeyVigenere();
-
-            // instancier le tableu de valeurs des chars
-            _keyValue = new int[_ps.Length];
-            // instancier le tableau de chars qui contient les chars de la clé
-            int[] decryptedPs = new int[_ps.Length];
-            // instancier le tableu qui contients les valeurs des chars du ps d'origine
-            _charValues = new int[_ps.Length];
-
-            int valuesPs;// variable qui stock la valeur du char du ps
-            int valuesKey;// variable qui stock la valeur du char de la clé
-
-            _chars = _ps.ToCharArray();// tableau des chars du ps
-            _keyChars = key.ToCharArray();// tableau des chars de la cle 
-            _keyPasse = new char[_ps.Length];// tableau des chars de la cle pour remplacer le ps 
-            int cptr = 0;// compteur pour les chars de la cle
-
-            string dencriptedPs = null;// stocker le ps decripte
-
-            // repeter la cle selon la taille du passeWord
-            for (int i = 0; i < _ps.Length; i++)
-            {
-                // si i est égale à la taille de la clé
-                if (cptr == key.Length)
+                if (isCrypted == true)
                 {
-                    cptr = 0; // compteur repasse à 0
+                    // stocker le nouveau char qui sort de l'addition de la cle + le passeWord et le modulo pour avoir la table ascii etendue
+                    charsValuesPasseword[i] = (_charValues[i] + _keyValue[i] + 256) % 256;
                 }
-                _keyPasse[i] = _keyChars[cptr];
-                cptr++;// incrementer le compteur
+                else
+                {
+                    // stocker le nouveau char qui sort de la sustraction de la cle - le passeWord et le modulo pour avoir la table ascii etendue
+                    charsValuesPasseword[i] = (_charValues[i] - _keyValue[i] + 256) % 256;
+                }
+                password += Convert.ToChar(charsValuesPasseword[i]);// concatenation des chars
             }
-            // transformer le char en int pour chaque cas du tableau
-            for (int i = 0; i < _keyPasse.Length; i++)
-            {
-                valuesPs = Convert.ToInt32(_chars[i]);
-                _charValues[i] = valuesPs;// stocker la valeur de chaque char
-
-                valuesKey = Convert.ToInt32(_keyPasse[i]);
-                _keyValue[i] = valuesKey;// stocker la valeur de chaque char
-
-                // stocker le nouveau char qui sort de la sustraction de la cle - le passeWord et le modulo pour avoir la table ascii etendue
-                decryptedPs[i] = (_charValues[i] - _keyValue[i] + 256) % 256;
-
-                dencriptedPs += Convert.ToChar(decryptedPs[i]);// concatenation des chars
-            }
-            // ps decripte
-            return dencriptedPs;
+            // mot de passe  chiffrer ou dechiffrer 
+            return password.Trim();
         }
     }
 }
