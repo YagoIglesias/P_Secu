@@ -387,6 +387,7 @@ namespace gestionnairePS
                 if (_key.KeyToTest != string.Empty)
                 {
                     _key.KeyToTest = _key.EncryptKeyToTest();// cripter la clé inserer afin de verifier si elle correspond a celle enregistre 
+                    _key.CheckOrGenerateKey();// recheker le contenu du fichier pour avoir la clé encrypter et la comparer 
                     // si la clé cripter qu'on test est la même que la clé enregistrer alors on demarre le programme
                     if (_key.KeyToTest == _key.Key)
                     {

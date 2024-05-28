@@ -165,7 +165,7 @@ namespace gestionnairePS
                 _charValues[i] = valuesKey;// stocker la valeur de chaque char
 
                 // stocker le nouveau char qui sort de l'addition de la cle + la clé et le modulo pour avoir la table ascii etendue
-                cryptedKey[i] = (_charValues[i] + _charValues[i]) % 256;
+                cryptedKey[i] = (_charValues[i] + _charValues[i] + 256) % 256;
 
                 encryptedKey += Convert.ToChar(cryptedKey[i]);// concatenation des chars
             }
