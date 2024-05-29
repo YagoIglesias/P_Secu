@@ -35,6 +35,10 @@ C:\Users\pw17kto\Desktop\P_Sec\gestionnairePS\gestionnairePS\bin\Debug\gestionna
 C:\Users\pw17kto\Desktop\P_Sec\gestionnairePS\gestionnairePS\bin\Debug\gestionnairePS.pdb
 C:\Users\pw17kto\Desktop\P_Sec\gestionnairePS\gestionnairePS\obj\Debug\gestionnairePS.csproj.AssemblyReference.cache
 C:\Users\pw17kto\Desktop\P_Sec\gestionnairePS\gestionnairePS\obj\Debug\gestionnairePS.csproj.CoreCompileInputs.cache
+<<<<<<< HEAD
+=======
+C:\Users\pw17kto\Desktop\P_Sec\gestionnairePS\gestionnairePS\obj\Debug\gestionn.2B049132.Up2Date
+>>>>>>> 43d49991a66858f1628dd73d191ea501247081ea
 C:\Users\pw17kto\Desktop\P_Sec\gestionnairePS\gestionnairePS\obj\Debug\gestionnairePS.exe
 C:\Users\pw17kto\Desktop\P_Sec\gestionnairePS\gestionnairePS\obj\Debug\gestionnairePS.pdb
 C:\Users\De La Rua\Desktop\P_Sec_modifs\gestionnairePS\gestionnairePS\bin\Debug\gestionnairePS.exe.config
@@ -62,5 +66,8 @@ E:\P_Sec_modifs\gestionnairePS\gestionnairePS\obj\Debug\gestionnairePS.csproj.Co
 E:\P_Sec_modifs\gestionnairePS\gestionnairePS\obj\Debug\gestionnairePS.csproj.CopyComplete
 E:\P_Sec_modifs\gestionnairePS\gestionnairePS\obj\Debug\gestionnairePS.exe
 E:\P_Sec_modifs\gestionnairePS\gestionnairePS\obj\Debug\gestionnairePS.pdb
+<<<<<<< HEAD
 C:\Users\pw17kto\Desktop\P_Sec\gestionnairePS\gestionnairePS\obj\Debug\gestionnairePS.csproj.SuggestedBindingRedirects.cache
 C:\Users\pw17kto\Desktop\P_Sec\gestionnairePS\gestionnairePS\obj\Debug\gestionnairePS.csproj.CopyComplete
+=======
+>>>>>>> 43d49991a66858f1628dd73d191ea501247081ea

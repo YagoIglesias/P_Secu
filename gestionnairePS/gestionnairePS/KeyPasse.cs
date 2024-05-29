@@ -243,7 +243,7 @@ namespace gestionnairePS
                 {
                     // stocker le nouveau char qui sort de la / du char par 2 
                     cryptedKey[i] = _charValues[i] / 2;
-        }
+                }   
                 // concatenation des chars
                 key += Convert.ToChar(cryptedKey[i]);
             }
