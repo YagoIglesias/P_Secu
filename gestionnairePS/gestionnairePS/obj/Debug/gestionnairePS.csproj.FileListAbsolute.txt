@@ -30,3 +30,37 @@ C:\Users\igles\Desktop\Programmation\P_Sec\gestionnairePS\gestionnairePS\obj\Deb
 \\DELARUA\Comun\P_Sec\gestionnairePS\gestionnairePS\obj\Debug\gestionnairePS.exe
 \\DELARUA\Comun\P_Sec\gestionnairePS\gestionnairePS\obj\Debug\gestionnairePS.pdb
 D:\P_Sec\gestionnairePS\gestionnairePS\obj\Debug\gestionn.2B049132.Up2Date
+C:\Users\pw17kto\Desktop\P_Sec\gestionnairePS\gestionnairePS\bin\Debug\gestionnairePS.exe.config
+C:\Users\pw17kto\Desktop\P_Sec\gestionnairePS\gestionnairePS\bin\Debug\gestionnairePS.exe
+C:\Users\pw17kto\Desktop\P_Sec\gestionnairePS\gestionnairePS\bin\Debug\gestionnairePS.pdb
+C:\Users\pw17kto\Desktop\P_Sec\gestionnairePS\gestionnairePS\obj\Debug\gestionnairePS.csproj.AssemblyReference.cache
+C:\Users\pw17kto\Desktop\P_Sec\gestionnairePS\gestionnairePS\obj\Debug\gestionnairePS.csproj.CoreCompileInputs.cache
+C:\Users\pw17kto\Desktop\P_Sec\gestionnairePS\gestionnairePS\obj\Debug\gestionnairePS.exe
+C:\Users\pw17kto\Desktop\P_Sec\gestionnairePS\gestionnairePS\obj\Debug\gestionnairePS.pdb
+C:\Users\De La Rua\Desktop\P_Sec_modifs\gestionnairePS\gestionnairePS\bin\Debug\gestionnairePS.exe.config
+C:\Users\De La Rua\Desktop\P_Sec_modifs\gestionnairePS\gestionnairePS\bin\Debug\gestionnairePS.exe
+C:\Users\De La Rua\Desktop\P_Sec_modifs\gestionnairePS\gestionnairePS\bin\Debug\gestionnairePS.pdb
+C:\Users\De La Rua\Desktop\P_Sec_modifs\gestionnairePS\gestionnairePS\obj\Debug\gestionnairePS.csproj.AssemblyReference.cache
+C:\Users\De La Rua\Desktop\P_Sec_modifs\gestionnairePS\gestionnairePS\obj\Debug\gestionnairePS.csproj.CoreCompileInputs.cache
+C:\Users\De La Rua\Desktop\P_Sec_modifs\gestionnairePS\gestionnairePS\obj\Debug\gestionn.2B049132.Up2Date
+C:\Users\De La Rua\Desktop\P_Sec_modifs\gestionnairePS\gestionnairePS\obj\Debug\gestionnairePS.exe
+C:\Users\De La Rua\Desktop\P_Sec_modifs\gestionnairePS\gestionnairePS\obj\Debug\gestionnairePS.pdb
+D:\P_Sec_modifs\gestionnairePS\gestionnairePS\bin\Debug\gestionnairePS.exe.config
+D:\P_Sec_modifs\gestionnairePS\gestionnairePS\bin\Debug\gestionnairePS.exe
+D:\P_Sec_modifs\gestionnairePS\gestionnairePS\bin\Debug\gestionnairePS.pdb
+D:\P_Sec_modifs\gestionnairePS\gestionnairePS\obj\Debug\gestionnairePS.csproj.AssemblyReference.cache
+D:\P_Sec_modifs\gestionnairePS\gestionnairePS\obj\Debug\gestionnairePS.csproj.SuggestedBindingRedirects.cache
+D:\P_Sec_modifs\gestionnairePS\gestionnairePS\obj\Debug\gestionnairePS.csproj.CoreCompileInputs.cache
+D:\P_Sec_modifs\gestionnairePS\gestionnairePS\obj\Debug\gestionnairePS.csproj.CopyComplete
+D:\P_Sec_modifs\gestionnairePS\gestionnairePS\obj\Debug\gestionnairePS.exe
+D:\P_Sec_modifs\gestionnairePS\gestionnairePS\obj\Debug\gestionnairePS.pdb
+E:\P_Sec_modifs\gestionnairePS\gestionnairePS\bin\Debug\gestionnairePS.exe.config
+E:\P_Sec_modifs\gestionnairePS\gestionnairePS\bin\Debug\gestionnairePS.exe
+E:\P_Sec_modifs\gestionnairePS\gestionnairePS\bin\Debug\gestionnairePS.pdb
+E:\P_Sec_modifs\gestionnairePS\gestionnairePS\obj\Debug\gestionnairePS.csproj.AssemblyReference.cache
+E:\P_Sec_modifs\gestionnairePS\gestionnairePS\obj\Debug\gestionnairePS.csproj.CoreCompileInputs.cache
+E:\P_Sec_modifs\gestionnairePS\gestionnairePS\obj\Debug\gestionnairePS.csproj.CopyComplete
+E:\P_Sec_modifs\gestionnairePS\gestionnairePS\obj\Debug\gestionnairePS.exe
+E:\P_Sec_modifs\gestionnairePS\gestionnairePS\obj\Debug\gestionnairePS.pdb
+C:\Users\pw17kto\Desktop\P_Sec\gestionnairePS\gestionnairePS\obj\Debug\gestionnairePS.csproj.SuggestedBindingRedirects.cache
+C:\Users\pw17kto\Desktop\P_Sec\gestionnairePS\gestionnairePS\obj\Debug\gestionnairePS.csproj.CopyComplete

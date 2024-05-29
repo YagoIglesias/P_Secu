@@ -2,21 +2,17 @@
 /// Auteur : Yago Iglesias Rodriguez
 /// Date : 14.05.24
 /// Description : Classe dedier a la creation d'un master passeword choisi par l'utilisateur.
-///               Pour ceci la méthode CheckOrGenerateKey() est appeller qui crée le fichier si il n'existe pas
-///               et appelle la méthode MasterPasseWord() qui permet la saissie de la clé, la saisie est masquer par des chars '*'
-///               avec la méthode HideInput() la clé est chiffrer par la méthode DecryptionKeyVigenere 
-///               et la clé est enregistrer dans le fichier créér précédement avec la méthode SaveKey().
-///               En revanche si le fichier exite le fichier est lu et la clé est decripter.
-
+///               Pour ceci la méthode CheckOrGenerateKey() est appeller pour crée le fichier si il n'existe pas
+///               et appelle la méthode MasterPasseWord(), qui permet la saissie de la clé, la saisie est masquer par des chars '*'
+///               avec la méthode HideInput(). La clé est chiffrer par la méthode EncryptionKeyVigenere(bool isCrypted) si le boolean est vrais
+///               et dechiffrer si le boolean est faux. 
+///               Ensuite la clé est enregistrer dans le fichier créér précédement avec la méthode SaveKey().
+///               En revanche si le fichier exite le fichier est lu et la clé chiffrer est stocker.
+///               Pour finir il y a la méthode EncryptKeyToTest() qui permet de cripter la clé entre par l'utilisateur.
+///               Ceci permet de verifier si la clé encrypter correspond á la clé inserer et continuer le programme ou l'interrompre
 
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Runtime.InteropServices.ComTypes;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace gestionnairePS
 {
@@ -38,16 +34,6 @@ namespace gestionnairePS
         private string _keyFileName = "Clé";
 
         /// <summary>
-        /// recuperer ou mettre a jour le nom du fichier qui contient la clé 
-        /// </summary>
-        public string KeyFileName { get { return _keyFileName; } set { _keyFileName = value; } }
-
-        /// <summary>
-        /// consatante pour decaler 
-        /// </summary>
-        private const int _DECALAGE = 3;
-
-        /// <summary>
         /// tableau pour stocker les characteres du PS
         /// </summary>
         private char[] _chars;
@@ -63,24 +49,9 @@ namespace gestionnairePS
         private string _keyCrypted;
 
         /// <summary>
-        /// stocker ou mettre a jour la valeur de la cle encrypter 
-        /// </summary>
-        public string KeyCrypted { get { return _keyCrypted; } set { _keyCrypted = value; } }
-
-        /// <summary>
         /// variable pour tester que la clé est correcte pour lancer le programme
         /// </summary>
         private string _keyToTest;
-
-        /// <summary>
-        /// variable pour stocker la clé decripter recuperer du fichier 
-        /// </summary>
-        private string _keyDecripted = null;
-
-        /// <summary>
-        /// recuperer ou mettre a jour la clé decripter 
-        /// </summary>
-        public string KeyDecripted { get { return _keyDecripted; } set { _keyDecripted = value; } }
 
         /// <summary>
         /// recuperer ou mettre a jour la cle a verifier
@@ -95,7 +66,12 @@ namespace gestionnairePS
         /// <summary>
         /// recuperer ou metre a jour le chemin 
         /// </summary>
-        public string KeyPath { get { return _keyPath; } set { _keyPath = value; } }
+        public string KeyPath { get { return _keyPath; } private set { _keyPath = value; } }
+
+        /// <summary>
+        /// recuperer ou mettre a jour le nom du fichier qui contient la clé 
+        /// </summary>
+        public string KeyFileName { get { return _keyFileName; } private set { _keyFileName = value; } }
 
         /// <summary>
         /// constructeur 
@@ -128,7 +104,6 @@ namespace gestionnairePS
                 if (!string.IsNullOrEmpty(line))// si la ligne n'est pas null ni vide 
                 {
                     _key = line;// la valeur de la ligne et stocke dans la variable de la cle 
-                    _keyDecripted = DecryptionKeyVigenere();// decripter la clé et la stocker
                 }
                 streamReader.Close();// fin du processus
             }
@@ -144,12 +119,12 @@ namespace gestionnairePS
             {
                 //Console.WriteLine();
                 Console.Write(" Inserez votre masterpasseword qui ferra office de clé: ");
-                _key = HideInput();// clé choisi par l'utilisateur
+                _key = HiddeInput();// clé choisi par l'utilisateur
                 // si la cle est inserer alors elle est cripte pour la stocker
                 if (_key != string.Empty)
                 {
-                    //_keyPasse = EncryptionKey();// chiffrement césar de la clé
-                    _keyCrypted = EncryptionKeyVigenere();// chiffrement vigenere de la clé
+                    //_keyCrypted = EncryptionKeyVigenere();// chiffrement vigenere de la clé
+                    _keyCrypted = EncryptionKeyVigenere(true);// chiffrement vigenere de la clé
                 }
 
             } while (_key == string.Empty);
@@ -169,136 +144,15 @@ namespace gestionnairePS
         }        
 
         /// <summary>
-        /// méthode pour encripter la cle
-        /// </summary>
-        /// <returns> retourne la cle encripte </returns>
-        public string EncryptionKey()
-        {
-            // instancier le tableau de valeurs
-            _charValues = new int[_key.Length];
-
-            // var pour stocker la valeur du char
-            int value;
-
-            // separer le ps en char et stock les chars dans un tableau
-            _chars = _key.ToCharArray();
-
-            // tableau pour stocker les nouveau characteres
-            char[] newArray = new char[_key.Length];
-
-            // variable pour stocker la concatenation des characteres modifies 
-            string encriptedKey;
-
-            // parcourrir le tableau de char
-            for (int i = 0; i < _chars.Length; i++)
-            {
-                // stocker la valeur numerique des chars
-                value = Convert.ToInt32(_chars[i]);
-                _charValues[i] = (value + _DECALAGE);// stocker la valeur du char dans le tableau 
-                newArray[i] = Convert.ToChar(_charValues[i]);// stocker la valeur reconverti en char dans le nouveau tableau
-                newArray.ToString();// convertir le tableau en string 
-            }
-            // stocker le ps encripte avec le string du tableau
-            encriptedKey = new string(newArray);
-            // returner le ps encripte
-            return encriptedKey;
-
-        }
-
-        /// <summary>
-        /// méthode pour afficher le mot de passe en claire
-        /// </summary>
-        public string DecryptionKey()
-        {
-            // instancier le tableau des valeurs du char
-            _charValues = new int[_key.Length];
-            int values;// stocker les valeurs du char
-            _chars = _key.ToCharArray();// separer le ps en char et les stocker dans le tableau 
-            string dencriptedPs = null;// stocker le ps decripte
-            // parcourrir le tablea de char
-            for (int i = 0; i < _chars.Length; i++)
-            {
-                // stocker la valeur
-                values = Convert.ToInt32(_chars[i]);
-                _charValues[i] = (values - _DECALAGE);// faire la valeur moins 3 pour stocker la valeur du vrais char
-                dencriptedPs += Convert.ToChar(_charValues[i]);// concatener le char et le stocker dans decriptedPs
-            }
-            // returner le ps decripter
-            return dencriptedPs;
-        }
-
-        //****/ chiffrement vigenere /***//
- 
-        /// <summary>
-        /// méthode pour chiffrer la clé avec le chiffrement de vigenere
-        /// </summary>
-        /// <returns> clé chiffrer </returns>
-        public string EncryptionKeyVigenere()
-        {
-            // instancier le tableu qui contients les valeurs des chars de la clé
-            _charValues = new int[_key.Length]; 
-            int valuesKey;// variable qui stock la valeur du char de la clé
-            int[] cryptedKey = new int[_key.Length];// stocker les nouveau chars de la clé cripte
-            _chars = _key.Trim().ToCharArray();// tableau des chars de la cle
-
-            // var pour stocker la clé encripte
-            string encryptedKey = null;
-
-            // transformer le char en int pour chaque cas du tableau
-            for (int i = 0; i < _key.Length; i++)
-            {
-                valuesKey = Convert.ToInt32(_chars[i]);
-                _charValues[i] = valuesKey;// stocker la valeur de chaque char
-
-                // stocker le nouveau char qui sort de l'addition de la cle + la clé et le modulo pour avoir la table ascii etendue
-                cryptedKey[i] = _charValues[i] + _charValues[i] % 256;
-
-                encryptedKey += Convert.ToChar(cryptedKey[i]);// concatenation des chars
-            }
-            // clé chiffrer
-            return encryptedKey;
-        }
-
-        /// <summary>
-        /// méthode pour dechiffrer la clé selon le chiffrement de vigenere
-        /// </summary>
-        /// <returns> clé decripte </returns>
-        public string DecryptionKeyVigenere()
-        {
-            // instancier le tableu qui contients les valeurs des chars de la clé
-            _charValues = new int[_key.Length];
-            int valuesKey;// variable qui stock la valeur du char de la clé
-            int[] decryptedKey = new int[_key.Length];// stocker les nouveau chars de la clé decripte
-            _chars = _key.ToCharArray();// tableau des chars de la cle
-
-            // var pour stocker la clé decripte
-            string decriptedKey = null;
-
-            // transformer le char en int pour chaque case du tableau
-            for (int i = 0; i < _key.Length; i++)
-            {
-                valuesKey = Convert.ToInt32(_chars[i]);
-                _charValues[i] = valuesKey;// stocker la valeur de chaque char
-
-                // stocker le nouveau char qui sort de la division du character par deux 
-                decryptedKey[i] = _charValues[i] / 2; //_charValues[i] % 256;
-
-                decriptedKey += Convert.ToChar(decryptedKey[i]);// concatenation des chars
-            }
-            // clé dechiffre
-            return decriptedKey;
-        }
-
-        /// <summary>
         /// méthode pour encripter la clé a tester afin de verifier la clé encripter du fichier
         /// </summary>
         /// <returns> clé chiffrer </returns>
-        public string TestKey()
+        public string EncryptKeyToTest()
         {
             // instancier le tableu qui contients les valeurs des chars de la clé
-            _charValues = new int[_keyToTest.Length];
+            _charValues = new int[_key.Length];
             int valuesKey;// variable qui stock la valeur du char de la clé
-            int[] cryptedKey = new int[_keyToTest.Length];// stocker les nouveau chars de la clé cripte
+            int[] cryptedKey = new int[_key.Length];// stocker les nouveau chars de la clé cripte
             _chars = _keyToTest.Trim().ToCharArray();// tableau des chars de la cle
 
             // var pour stocker la clé encripte
@@ -311,7 +165,7 @@ namespace gestionnairePS
                 _charValues[i] = valuesKey;// stocker la valeur de chaque char
 
                 // stocker le nouveau char qui sort de l'addition de la cle + la clé et le modulo pour avoir la table ascii etendue
-                cryptedKey[i] = _charValues[i] + _charValues[i] % 256;
+                cryptedKey[i] = (_charValues[i] + _charValues[i]) % 256;
 
                 encryptedKey += Convert.ToChar(cryptedKey[i]);// concatenation des chars
             }
@@ -323,9 +177,9 @@ namespace gestionnairePS
         /// méthode pour masquer lentre de characteres 
         /// </summary>
         /// <returns> retourne la mot de passe en claire </returns>
-        public string HideInput()
+        public string HiddeInput()
         {
-            string input = " ";// stocker la valeur de la touche
+            string input = null;// stocker la valeur de la touche
             ConsoleKeyInfo keyPressed = new ConsoleKeyInfo();// touche presse 
             // repeter tant que enter n'est pas presse
             do
@@ -337,17 +191,64 @@ namespace gestionnairePS
                 {
                     input += keyPressed.KeyChar;// stocke le caracter de la touche
                     Console.Write("*");
+                    // si alt ou alt gr sont prsses alors on efface leur valeur afin de pas avoir d'espace vide
+                    if ((keyPressed.Modifiers & ConsoleModifiers.Alt) != 0)
+                    {
+                        input.Substring(0, input.Length - 1);
+                    }
                 }
                 // si la touche presse et le backspace et que l'input n'est pas null 
-                else if (keyPressed.Key == ConsoleKey.Backspace && input.Length > 0)
+                if (keyPressed.Key == ConsoleKey.Backspace && input.Length > 0)
                 {
                     input = input.Remove(input.Length - 1);// effacer le char
                     Console.Write("\b \b");// effacer le caractère précédent sans ajouter d’espace vide 
+                    
                 }
+
             } while (keyPressed.Key != ConsoleKey.Enter);
             Console.WriteLine();
             // returne le mot de passe en claire
-            return input.Trim();
+            return input;
+        }
+
+        /// <summary>
+        /// méthode qui permet de chiffrer ou dechiffrer la cl´de l'utilisateur
+        /// </summary>
+        /// <param name="isCrypted"> determine si il faut crypter ou decrypter </param>
+        /// <returns> clé crypter ou decrypter </returns>
+        public string EncryptionKeyVigenere(bool isCrypted)
+        {
+            // instancier le tableu qui contients les valeurs des chars de la clé
+            _charValues = new int[_key.Length];
+            int valuesKey;// variable qui stock la valeur du char de la clé
+            int[] cryptedKey = new int[_key.Length];// stocker les nouveau chars de la clé cripte
+            _chars = _key.Trim().ToCharArray();// tableau des chars de la cle
+
+            // var pour stocker la clé encripte
+            string key = null;
+
+            // transformer le char en int pour chaque cas du tableau
+            for (int i = 0; i < _key.Length; i++)
+            {
+                valuesKey = Convert.ToInt32(_chars[i]);
+                _charValues[i] = valuesKey;// stocker la valeur de chaque char
+
+                // si c'est vrais il faut crypter la clé sin la decrypter
+                if (isCrypted == true)
+                {
+                    // stocker le nouveau char qui sort de l'addition de la cle + la clé et le modulo pour avoir la table ascii etendue
+                    cryptedKey[i] = (_charValues[i] + _charValues[i]) % 256;
+                }
+                else
+                {
+                    // stocker le nouveau char qui sort de la / du char par 2 
+                    cryptedKey[i] = _charValues[i] / 2;
+        }
+                // concatenation des chars
+                key += Convert.ToChar(cryptedKey[i]);
+            }
+            // clé chiffrer ou dechiffrer 
+            return key;
         }
     }
 }
